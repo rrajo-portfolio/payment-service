@@ -20,6 +20,13 @@
     <properties>
         <java.version>17</java.version>
         <springdoc.version>2.3.0</springdoc.version>
+        <sonar.projectKey>payment-service</sonar.projectKey>
+        <sonar.projectName>payment-service</sonar.projectName>
+        <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+        <sonar.exclusions>**/generated/**,**/generated-sources/**</sonar.exclusions>
+        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.exclusions>**/controller/**,**/config/**,**/security/**,**/events/**,**/entity/**,**/repository/**,**/client/**,**/generated/**,**/generated-sources/**,**/exception/**,**/*Application.*</sonar.coverage.exclusions>
+        <sonar.coverage.inclusions>**/service/**</sonar.coverage.inclusions>
     </properties>
 
     <dependencies>
@@ -97,6 +104,39 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.11</version>
+                <configuration>
+                    <excludes>
+                        <exclude>com/portfolio/payment/controller/**</exclude>
+                        <exclude>com/portfolio/payment/config/**</exclude>
+                        <exclude>com/portfolio/payment/security/**</exclude>
+                        <exclude>com/portfolio/payment/events/**</exclude>
+                        <exclude>com/portfolio/payment/entity/**</exclude>
+                        <exclude>com/portfolio/payment/repository/**</exclude>
+                        <exclude>com/portfolio/payment/client/**</exclude>
+                        <exclude>com/portfolio/payment/generated/**</exclude>
+                        <exclude>com/portfolio/payment/exception/**</exclude>
+                        <exclude>com/portfolio/payment/PaymentServiceApplication*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
